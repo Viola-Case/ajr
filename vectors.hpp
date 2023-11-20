@@ -19,13 +19,45 @@ namespace ajr {
 		vec2(double a[]) : x(a[0]), y(a[1]) {};
 		vec2(double a) : x(a), y(a) {};
 
+		double getX() {
+			return x;
+		}
+
+		double getY() {
+			return y;
+		}
+
 		double operator*(vec2& other) {
 			return x * other.x + y * other.y;
+		}
+
+		double operator[](int other) {
+			switch (other) {
+			case 0:
+				return x;
+				break;
+			case 1:
+				return y;
+				break;
+			default:
+			{
+				int* p = NULL;
+				return *p;
+			}
+				break;
+			}
 		}
 
 		double magnitude() {
 			return sqrt(x * x + y * y);
 		}
+
+#ifdef _IOSTREAM_
+		friend std::ostream& operator<<(std::ostream& os, const vec2 v) {
+			os << '(' << v.x << ", " << v.y << ')';
+			return os;
+	}
+#endif
 
 #ifdef _VECTOR_
 
@@ -71,6 +103,10 @@ namespace ajr {
 		vec2 xz() { return vec2(x, z);}
 		vec2 yz() { return vec2(y, z);}
 
+		double getX() { return x; }
+		double getY() { return y; }
+		double getZ() { return z; }
+
 		double operator*(vec3& other) {
 			return x * other.x + y * other.y + z * other.z;
 		}
@@ -79,9 +115,37 @@ namespace ajr {
 			return vec3(y * other.z - z * other.y, z * other.x - x * other.z, x * other.y - y * other.x);
 		}
 
+		double operator[](int other) {
+			switch (other) {
+			case 0:
+				return x;
+				break;
+			case 1:
+				return y;
+				break;
+			case 2:
+				return z;
+				break;
+			default:
+			{
+				int* p = NULL;
+				return *p;
+			}
+				break;
+			}
+		}
+
 		double magnitude() {
 			return sqrt(x * x + y * y + z * z);
 		}
+
+
+#ifdef _IOSTREAM_
+		friend std::ostream& operator<<(std::ostream& os, const vec3 v) {
+			os << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+			return os;
+		}
+#endif
 
 	private:
 		double x, y, z;
@@ -92,24 +156,17 @@ namespace ajr {
 		vec4() : w(0.0), x(0.0), y(0.0), z(0.0) {};
 		vec4(double a, double b, double c, double d) : w(a), x(b), y(c), z(d) {};
 
-		vec2 wx() {
-			return vec2(w, x);
-		}
-		vec2 wy() { 
-			return vec2(w, y);
-		}
-		vec2 wz() { 
-			return vec2(w, z);
-		}
-		vec2 xy() { 
-			return vec2(x, y);
-		}
-		vec2 xz() { 
-			return vec2(x, z);
-		}
-		vec2 yz() { 
-			return vec2(y, z);
-		}
+		double getW() { return w; }
+		double getX() { return x; }
+		double getY() { return y; }
+		double getZ() { return z; }
+
+		vec2 wx() { return vec2(w, x); }
+		vec2 wy() { return vec2(w, y); }
+		vec2 wz() { return vec2(w, z); }
+		vec2 xy() { return vec2(x, y); }
+		vec2 xz() { return vec2(x, z); }
+		vec2 yz() { return vec2(y, z); }
 
 		vec3 wxy() { return vec3(w, x, y);}
 		vec3 wxz() { return vec3(w, x, z);}
@@ -120,9 +177,39 @@ namespace ajr {
 			return w * other.w + x * other.x + y * other.y + z * other.z;
 		}
 
+		double operator[](int other) {
+			switch (other) {
+			case 0:
+				return w;
+				break;
+			case 1:
+				return x;
+				break;
+			case 2:
+				return y;
+				break;
+			case 3:
+				return z;
+				break;
+			default:
+			{
+				int* p = NULL;
+				return *p;
+			}
+				break;
+			}
+		}
+
 		double magnitude() {
 			return sqrt(w * w + x * x + y * y + z * z);
 		}
+
+#ifdef _IOSTREAM_
+		friend std::ostream& operator<<(std::ostream& os, const vec4 v) {
+			os << '(' << v.w << ", " << v.x << ", " << v.y << ", " << v.z << ')';
+			return os;
+		}
+#endif
 
 	private:
 		double w, x, y, z;

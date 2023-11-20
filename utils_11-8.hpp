@@ -12,16 +12,16 @@
 
 #pragma region macros
 
-#define COMMUTATIVE_OPERATOR_OVERLOAD(OP)                            \
+#define COMMUTATIVE_OPERATOR_OVERLOAD(OP)                           \
     template <typename T, typename U>                               \
-    auto operator OP(const T& lhs, const U& rhs)                     \
+    auto operator OP(const T& lhs, const U& rhs)                    \
         -> decltype(lhs OP rhs)                                     \
     {                                                               \
         return lhs OP rhs;                                          \
     }                                                               \
                                                                     \
     template <typename T, typename U>                               \
-    auto operator OP(const U& lhs, const T& rhs)                     \
+    auto operator OP(const U& lhs, const T& rhs)					\
         -> decltype(lhs OP rhs)                                     \
     {                                                               \
         return lhs OP rhs;                                          \
