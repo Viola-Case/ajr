@@ -73,9 +73,10 @@ namespace ajr {
 	}
 
 
-	complex i = complex(0., 1.);
+	const complex i = const complex(0., 1.);
 
 #define AJR_I ajr::i
+
 }
 
 #endif

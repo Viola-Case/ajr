@@ -1,4 +1,6 @@
 #pragma once
+#include <cstring>
+
 /**
 * 
 * Remember to always put the standard libraries above this header in your code!
@@ -57,7 +59,13 @@
 
 namespace ajr {
 
+	int cstrToInt(const char* line) {
+		
 
+		std::cout << sizeof(line);
+
+		return 0;
+	}
 
 
 #ifdef _FSTREAM_
@@ -102,7 +110,7 @@ namespace ajr {
 
 		target = fileContents;
 
-		free(&fileContents);
+		
 
 	}
 #endif

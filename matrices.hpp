@@ -1,5 +1,3 @@
-#include <cmath>
-
 #ifndef _AJR_MATRIX_
 #define _AJR_MATRIX_
 
@@ -14,7 +12,14 @@ namespace ajr {
 			bx, by;
 
 	public:
-		mat2x2(double w, double x, double y, double z) : ax(w), ay(x), bx(y), by(z) {};
+		mat2x2() : ax(0.), ay(0.), bx(0.), by(0.) {};
+		mat2x2(
+			double w, double x,
+			double y, double z
+		) :
+			ax(w), ay(x),
+			bx(y), by(z)
+		{};
 		mat2x2(vec2 a, vec2 b) : ax(a.getX()), ay(a.getY()), bx(b.getX()), by(b.getY()) {};
 
 		vec2 a() { return vec2(ax, ay); }
@@ -40,6 +45,38 @@ namespace ajr {
 			case 1:
 				return b();
 			}
+		}
+
+		mat2x2 operator*(mat2x2& other) {
+			return mat2x2(
+				dotProduct(a(), other.x()), dotProduct(a(), other.y()),
+				dotProduct(b(), other.x()), dotProduct(b(), other.y())
+			);
+		}
+
+		mat2x2 operator*(double& other) {
+			return mat2x2(
+				ax * other, ay * other,
+				bx * other, by * other
+			);
+		}
+
+		mat2x2 operator+(mat2x2& other) {
+			return mat2x2(
+				ax + other.ax, ay + other.ay,
+				bx + other.bx, by + other.by
+			);
+		}
+
+		mat2x2 operator-(mat2x2& other) {
+			return mat2x2(
+				ax - other.ax, ay - other.ay,
+				bx - other.bx, by - other.by
+			);
+		}
+
+		double determinant() {
+			return ax * by - ay * bx;
 		}
 
 	};
@@ -74,6 +111,43 @@ namespace ajr {
 		vec3 x() { return vec3(ax, bx, cx); }
 		vec3 y() { return vec3(ay, by, cy); }
 		vec3 z() { return vec3(az, bz, cz); }
+
+		mat3x3 operator*(mat3x3& other) {
+			return mat3x3(
+				dotProduct(a(), other.x()), dotProduct(a(), other.y()), dotProduct(a(), other.z()),
+				dotProduct(b(), other.x()), dotProduct(b(), other.y()), dotProduct(b(), other.z()),
+				dotProduct(c(), other.x()), dotProduct(c(), other.y()), dotProduct(c(), other.z())
+			);
+		}
+
+		mat3x3 operator+(mat3x3& other) {
+			return mat3x3(
+				ax + other.ax, ay + other.ay, az + other.az,
+				bx + other.bx, by + other.by, bz + other.bz,
+				cx + other.cx, cy + other.cy, cz + other.cz
+			);
+		}
+
+		mat3x3 operator-(mat3x3& other) {
+			return mat3x3(
+				ax - other.ax, ay - other.ay, az - other.az,
+				bx - other.bx, by - other.by, bz - other.bz,
+				cx - other.cx, cy - other.cy, cz - other.cz
+			);
+		}
+
+		double determinant() {
+			return (
+				(
+					ax * by * cz +
+					bx * cy * az +
+					cx * ay * bz
+					) - (
+					az * by * cx +
+					bz * cy * ax +
+					cz * ay * bx
+					));
+		}
 	};
 
 	class mat4x4 {
@@ -113,7 +187,36 @@ namespace ajr {
 		vec4 y() { return vec4( ay, by, cy, dy ) ; }
 		vec4 z() { return vec4( az, bz, cz, dz ) ; }
 
-		
+		mat4x4 operator*(mat4x4& other) {
+			return mat4x4(
+				dotProduct(a(), other.w()), dotProduct(a(), other.x()), dotProduct(a(), other.y()), dotProduct(a(), other.z()),
+				dotProduct(b(), other.w()), dotProduct(b(), other.x()), dotProduct(b(), other.y()), dotProduct(b(), other.z()),
+				dotProduct(c(), other.w()), dotProduct(c(), other.x()), dotProduct(c(), other.y()), dotProduct(c(), other.z()),
+				dotProduct(d(), other.w()), dotProduct(d(), other.x()), dotProduct(d(), other.y()), dotProduct(d(), other.z())
+			);
+		}
+
+		mat4x4 operator+(mat4x4& other) {
+			return mat4x4(
+			aw+other.aw, ax+other.ax, ay+other.ay, az+other.az,
+			bw+other.bw, bx+other.bx, by+other.by, bz+other.bz,
+			cw+other.cw, cx+other.cx, cy+other.cy, cz+other.cz,
+			dw+other.dw, dx+other.dx, dy+other.dy, dz+other.dz);
+		}
+
+		mat4x4 operator-(mat4x4& other) {
+			return mat4x4(
+				aw - other.aw, ax - other.ax, ay - other.ay, az - other.az,
+				bw - other.bw, bx - other.bx, by - other.by, bz - other.bz,
+				cw - other.cw, cx - other.cx, cy - other.cy, cz - other.cz,
+				dw - other.dw, dx - other.dx, dy - other.dy, dz - other.dz);
+		}
+
+		double determinant() {
+
+		}
+
+		friend double determinant(mat4x4 A);
 
 	};
 
@@ -134,6 +237,18 @@ namespace ajr {
 		0., 0., 1., 0.,
 		0., 0., 0., 1.
 	);
+
+	double determinant(mat2x2 A) {
+
+	}
+
+	double determinant(mat3x3 A) {
+
+	}
+
+	double determinant(mat4x4 A) {
+		
+	}
 
 }
 

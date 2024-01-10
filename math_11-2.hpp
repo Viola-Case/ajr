@@ -13,6 +13,13 @@
 #define _INCLUDE_SHORTHAND
 #include <ajr/utils_11-8.hpp>
 
+#ifdef _INCLUDE_TERMINOLOGY
+#define scalar double
+#define fraction ajr::frac
+#define compnum ajr::complex
+
+#endif
+
 #ifndef _CMATH_
 #include <cmath>
 #endif
